@@ -4,21 +4,20 @@ const PORT = 3000;
 
 app.use(express.json()); // permite ler JSON do corpo dos pedidos
 
-let tasks = []; // lista em memória
+const Task = require("./Domain/Task");
+
+const tasks = []; // lista em memória
+
+const newTask = new Task("Study node", "Know how to create classes");
+
+tasks.push(newTask);
 
 // GET /tasks → devolve todas as tarefas
 app.get("/tasks", (req, res) => {
   res.json(tasks);
 });
 
-// POST /tasks → adiciona uma nova tarefa
-app.post("/tasks", (req, res) => {
-  const newTask = req.body.task;
-  tasks.push(newTask);
-  res.json({ message: "Tarefa adicionada!", tasks });
-});
-
-// iniciar servidor
+// deploy server
 app.listen(PORT, () => {
   console.log(`Servidor a correr em http://localhost:${PORT}`);
 });
